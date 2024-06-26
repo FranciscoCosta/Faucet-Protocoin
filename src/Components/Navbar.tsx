@@ -106,7 +106,7 @@ export function Navbar() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="https://testnet.bscscan.com/address/0x5E1cDfDa56a8856CeD9f2fd4d3Ab64DE943330d7" target="_blank" legacyBehavior passHref>
+          <Link href="https://testnet.bscscan.com/address/0x608738661F889De39583A63c5bdaa417c4053123" target="_blank" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Documentation
             </NavigationMenuLink>

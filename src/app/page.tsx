@@ -1,11 +1,13 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
+import metamaskIcon from "@/app/assets/metamask.png";
 import logo from "@/app/assets/protocoin.jpg"
 import Image from "next/image";
 import { Navbar } from "@/Components/Navbar";
 import { SiteFooter } from "@/Components/Footer";
+import {mint} from "@/lib/Web3Service";
 
 export default function Home() {
   return (
@@ -23,11 +25,22 @@ export default function Home() {
              The best faucet to get ProtoCoins for free! A max of 1.000 ProtoCoins can be claimed every day.
             </p>
             <div className="mt-5 lg:mt-8 flex flex-col sm:items-center gap-2 sm:flex-row sm:gap-3">
-              <div className="w-full max-w-lg  lg:w-auto">
-                <Label className="sr-only">Search</Label>
-                <Input placeholder="Enter address" type="address" />
-              </div>
-              <Button className="w-min">Request</Button>
+              
+              <Button 
+              className="px-4"
+              onClick={() => {
+                mint();
+              }}
+              
+              >
+                <Image
+                  src={metamaskIcon}
+                  alt="Metamask"
+                  width={24}
+                  height={24}
+                />
+                <p className="ml-2 text-black dark:text-white" >Connect with Metamask</p>
+                </Button>
             </div>
             {/* Brands */}
             <div className="mt-6 lg:mt-12">

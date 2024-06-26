@@ -8,8 +8,22 @@ import Image from "next/image";
 import { Navbar } from "@/Components/Navbar";
 import { SiteFooter } from "@/Components/Footer";
 import {mint} from "@/lib/Web3Service";
+import { useState } from "react";
+
 
 export default function Home() {
+
+  // Connect Wallet to metamask
+  const handleConectWallet = async () => {
+    try {
+      const tx = await mint();
+      setTx(tx.transactionHash);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const [tx, setTx] = useState('');
   return (
     <>
     <Navbar />
@@ -29,7 +43,7 @@ export default function Home() {
               <Button 
               className="px-4"
               onClick={() => {
-                mint();
+                handleConectWallet();
               }}
               
               >
@@ -40,7 +54,15 @@ export default function Home() {
                   height={24}
                 />
                 <p className="ml-2 text-black dark:text-white" >Connect with Metamask</p>
+               
                 </Button>
+                {
+                  tx && (
+                    <a href={`https://testnet.bscscan.com/tx/${tx}`} target="_blank" rel="noreferrer">
+                      <p className="ml-2 text-black dark:text-white" >View Transaction</p>
+                    </a>
+                  )
+                }
             </div>
             {/* Brands */}
             <div className="mt-6 lg:mt-12">

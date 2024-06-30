@@ -17,8 +17,9 @@ export async function mint() {
             try{
                 const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/mint/${accounts[0]}`);
                 return response.data;
-            }catch(error){
-                toast.error('Error while minting ProtoCoins');
+            }catch(error : any){
+                console.log(error);
+                toast.error(error.message);
                 throw new Error('Error while minting ProtoCoins');
             }
            

@@ -53,7 +53,7 @@ export default function Home() {
                   width={24}
                   height={24}
                 />
-                <p className="ml-2 text-black dark:text-white" >Connect with Metamask</p>
+                <p className="ml-2 text-black dark:text-white" >Get your ProtoCoins</p>
                
                 </Button>
                 {

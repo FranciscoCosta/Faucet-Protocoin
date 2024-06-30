@@ -106,7 +106,7 @@ export function Navbar() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="https://testnet.bscscan.com/address/0x608738661F889De39583A63c5bdaa417c4053123" target="_blank" legacyBehavior passHref>
+          <Link href={`https://testnet.bscscan.com/address/${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`} target="_blank" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Documentation
             </NavigationMenuLink>

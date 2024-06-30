@@ -9,22 +9,32 @@ import { Navbar } from "@/Components/Navbar";
 import { SiteFooter } from "@/Components/Footer";
 import {mint} from "@/lib/Web3Service";
 import { useState } from "react";
-
+import ReCAPTCHA from "react-google-recaptcha";
+import { toast } from "react-toastify";
 
 export default function Home() {
 
   // Connect Wallet to metamask
   const handleConectWallet = async () => {
+    if (!captcha) {
+      setFirstClaim(false);
+      toast.error('Please verify the captcha.');
+      return;
+    }
     try {
       const tx = await mint();
       setTx(tx.transactionHash);
     } catch (error) {
       console.error(error);
+    }finally{
+      setCaptcha(null);
     }
   }
 
   const [tx, setTx] = useState('');
-  return (
+  const [captcha, setCaptcha] = useState('' as string | null);
+  const [firstClaim, setFirstClaim] = useState(true);
+    return (
     <>
     <Navbar />
       {/* Hero */}
@@ -38,7 +48,7 @@ export default function Home() {
             <p className="mt-3 text-xl text-muted-foreground">
              The best faucet to get ProtoCoins for free! A max of 1.000 ProtoCoins can be claimed every day.
             </p>
-            <div className="mt-5 lg:mt-8 flex flex-col sm:items-center gap-2 sm:flex-row sm:gap-3">
+            <div className="mt-5 lg:mt-8 flex flex-col sm:items-center gap-2 sm:flex-col sm:gap-3">
               
               <Button 
               className="px-4"
@@ -56,6 +66,14 @@ export default function Home() {
                 <p className="ml-2 text-black dark:text-white" >Get your ProtoCoins</p>
                
                 </Button>
+                <div className="inline-flex">
+                 {!firstClaim && <ReCAPTCHA
+                    sitekey={`${process.env.NEXT_PUBLIC_RECAPCHA_SITE_KEY}`}
+                    onChange={(value) => {
+                      setCaptcha(value);
+                    }}
+                  />}
+                </div>
                 {
                   tx && (
                     <a href={`https://testnet.bscscan.com/tx/${tx}`} target="_blank" rel="noreferrer">
@@ -63,6 +81,7 @@ export default function Home() {
                     </a>
                   )
                 }
+
             </div>
             {/* Brands */}
             <div className="mt-6 lg:mt-12">
